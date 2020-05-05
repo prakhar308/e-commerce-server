@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
 		trim: true
 	},
 	description: String,
-	quantitiy: {
+	quantity: {
 		type: String,
 		required: true,
 		validate(val) {
