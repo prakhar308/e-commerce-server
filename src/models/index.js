@@ -8,3 +8,4 @@ mongoose.connect('mongodb://127.0.0.1:27017/ecommerce', {
 });
 
 module.exports.Product = require("./product");
+module.exports.User = require("./user");
