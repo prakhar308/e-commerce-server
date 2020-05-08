@@ -7,5 +7,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/ecommerce', {
 	useUnifiedTopology : true,
 });
 
-module.exports.Product = require("./product");
-module.exports.User = require("./user");
+module.exports = {
+	Product: require("./product"),
+	User: require("./user")
+};
