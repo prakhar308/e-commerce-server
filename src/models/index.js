@@ -9,5 +9,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/ecommerce', {
 
 module.exports = {
 	Product: require("./product"),
-	User: require("./user")
+	User: require("./user"),
+	Order: require("./order")
 };
