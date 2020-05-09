@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema({
 		required: true,
 		validate(val) {
 			if(val <= 0) {
-				throw new Error('Price cannot be negative');
+				throw new Error('Quantity cannot be negative');
 			}
 		}
 	}
