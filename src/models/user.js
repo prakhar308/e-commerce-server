@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
 			street: String,
 			locality: String,
 			city: String,
-			Pincode: String
+			pincode: String
 		}
 	],
 	orders: [
@@ -46,15 +46,19 @@ const userSchema = new mongoose.Schema({
 			ref: 'Order'
 		}
 	],
-	cart: {
-		products: [
-			{
+	cart: [
+		{
+			product: {
 				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Product'
+				ref: 'Product',
+				required: true
+			},
+			qty: {
+				type: Number,
+				required: true
 			}
-		],
-		total_bill: Number
-	},
+		}
+	],
 	tokens: [{
 		token: {
 			type: String,
