@@ -2,9 +2,13 @@ const router = require("express").Router();
 const cartController = require("../controllers/cartController");
 const auth = require("../middleware/auth");
 
-router.route("/")
-	.all(auth)
-	.get(cartController.getItemsInCart)
-	.post(cartController.saveCart);
+// require authentication for all routes
+router.all("*", auth)
+
+router
+	.get("/", cartController.getProductsInCart)
+	.post("/add", cartController.addToCart)
+	.put("/update", cartController.updateCart)
+	.put("/remove", cartController.removeFromCart)
 
 module.exports = router;

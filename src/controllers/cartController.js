@@ -1,10 +1,11 @@
 const db = require("../models/");
+const mongoose = require('mongoose')
 
-exports.getItemsInCart = async (req, res) => {
+exports.getProductsInCart = async (req, res) => {
 	try {
 		// populate product details in cart
 		await req.user.populate({
-			path: "cart.product",
+			path: "cart.productId",
 			select: ["img", "name", "price"]	
 		}).execPopulate();
 
@@ -12,7 +13,7 @@ exports.getItemsInCart = async (req, res) => {
 
 		const cart = userObject.cart.map((i) => {
 			return {
-				...i.product,
+				...i.productId,
 				qty: i.qty
 			}
 		})
@@ -23,14 +24,56 @@ exports.getItemsInCart = async (req, res) => {
 	}
 }
 
-exports.saveCart = async (req, res) => {
+// add product to cart
+exports.addToCart = async (req, res) => {
 	try {
-		// save items in cart
-		req.user.cart = req.body;
+		req.user.cart.push(req.body);
 		await req.user.save();
+		
+		// find recently added product in cart 
+		const cartItem = req.user.cart.find((item) => {
+			return (item.productId == req.body.productId && item.qty === req.body.qty)
+		})
 
-		res.status(200).send(req.user.cart);
+		// if product found
+		if(cartItem)
+			res.status(201).send(cartItem);
+		else
+			res.status(500).send({message: "cannot add product to cart"});
+
 	} catch(e) {
 		res.status(500).send({message: e.message})
 	}
+}
+
+// update product quantity in cart
+exports.updateCart = async (req, res) => {
+	try {
+		//convert mongoose object to raw object
+		const userObject = req.user.toObject();
+		const cart = userObject.cart.map((item) => (
+			(item.productId == req.body.productId) ? {...item, qty: req.body.qty} : item
+		))
+		req.user.cart = cart;
+		await req.user.save();
+		res.status(200).send();
+	} catch(e) {
+		res.status(500).send({message: e.message});
+	}
+}
+
+// remove product from cart
+exports.removeFromCart = async (req, res) => {
+	try {
+		// filter out products whose id don't match with
+		// the id of the product to be removed
+		const cart = req.user.cart.filter((item) => {
+			return item.productId != req.body.productId;
+		})
+		req.user.cart = cart;
+		await req.user.save();
+		res.status(200).send();
+	} catch(e) {
+		res.status(500).send({message: e.message});
+	}	
 }
