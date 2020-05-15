@@ -5,9 +5,7 @@ const productController = require("../controllers/productController");
 router.route("/")
 	// create a new product
 	.post(productController.createProduct)
-	// filter products on the basis of category
+	// get/filter/sort products
 	.get(productController.getProducts);
-	
-router.get("/:category", productController.filterProducts);
 
 module.exports = router;
