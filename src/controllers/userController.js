@@ -1,43 +1,16 @@
 const db = require("../models");
 
 exports.createUser = async (req, res) => {
-	try {
-		const user = new db.User(req.body)
-		const token = await user.generateAuthToken();
-		res.status(201).send({user, token})
-	} catch (e) {
-		res.status(400).send({error: e.message});
-	}
+	res.redirect("/api/auth/google");
 }
 
 exports.loginUser = async (req, res) => {
-	try {
-	  	const user = await db.User.loginByCredentials(req.body.email, req.body.password);
-	  	const token = await user.generateAuthToken();
-	  	res.status(200).send({user, token});
-	} catch(e) {
-	  	res.status(400).send({"error": e.message});
-	}
+	res.redirect("/api/auth/google");
 }
 
 exports.logoutUser = async (req, res) => {
-	try {
-		req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
-		await req.user.save();
-		res.status(200).send({message: "Successfully Loggedout"})
-	} catch(e) {
-		res.status(500).send({error: "Logout Failed"});
-	}
-}
-
-exports.logoutAll = async (req, res) => {
-	try {
-		req.user.tokens = [];
-		await req.user.save();
-		res.status(200).send({message: "Sucessfully logged you out from all devices"});
-	} catch(e) {
-	  	res.status(500).send({error: "Logout failed"});
-	}
+	req.logout();
+	res.status(200).send({mesage: "Sucessfully logged out"});
 }
 
 exports.readUser = async (req, res) => {
@@ -46,7 +19,7 @@ exports.readUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
 	const updates = Object.keys(req.body)
-	const allowedUpdates = ['name', 'email', 'password']
+	const allowedUpdates = ['name', 'email']
 	const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
 	if (!isValidOperation) {
