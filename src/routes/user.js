@@ -6,7 +6,7 @@ const userController = require("../controllers/userController");
 // create a new User
 router.post('/', userController.createUser);
 
-router.post("/login", userController.loginUser);
+router.get("/login", userController.loginUser);
 
 // logout user from current device
 router.get("/logout", auth, userController.logoutUser);
