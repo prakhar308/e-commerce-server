@@ -10,6 +10,10 @@ exports.createProduct = async (req, res) => {
 	}
 }
 
+// The query for sorting or filtering can be written as:
+// ?sort=price:desc&category=Fruits&page=1
+// OR
+// ?sort=price:asc&category=Vegatables
 exports.getProducts = async (req, res) => {
 	let pageNumber = 1;
 	const nPerPage = 5;
