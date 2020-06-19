@@ -30,10 +30,15 @@ exports.addToCart = async (req, res) => {
 		req.user.cart.push(req.body);
 		await req.user.save();
 		
-		// find recently added product in cart 
-		const cartItem = req.user.cart.find((item) => {
-			return (item.productId == req.body.productId && item.qty === req.body.qty)
-		})
+		// 
+		let cartItem = await db.Product.findById(
+											{_id: req.body.productId},
+											'name img price'
+										);
+		
+		cartItem = cartItem.toObject();	
+		// add qty field in object
+		cartItem = {...cartItem, qty: req.body.qty}
 
 		// if product found
 		if(cartItem)
