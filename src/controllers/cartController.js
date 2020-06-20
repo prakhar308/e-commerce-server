@@ -82,3 +82,14 @@ exports.removeFromCart = async (req, res) => {
 		res.status(500).send({message: e.message});
 	}	
 }
+
+// clear all items in cart
+exports.clearCart = async (req, res) => {
+	try {
+		req.user.cart = [];
+		await req.user.save();
+		res.status(200).send();
+	} catch (e) {
+		res.status(500).send({message: e.message})
+	}
+}

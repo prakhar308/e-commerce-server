@@ -10,5 +10,6 @@ router
 	.post("/add", cartController.addToCart)
 	.put("/update", cartController.updateCart)
 	.put("/remove", cartController.removeFromCart)
+   .get("/clear", cartController.clearCart)
 
 module.exports = router;
