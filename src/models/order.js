@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const validator = require('validator');
 
 const orderSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		required: true,
+		trim: true
+	},
 	date: {
 		type: Date,
 		required: true,
