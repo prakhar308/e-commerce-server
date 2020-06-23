@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
 	},
 	description: String,
 	quantity: {
-		type: String,
+		type: Number,
 		required: true,
 		validate(val) {
 			if(val <= 0) {
