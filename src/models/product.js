@@ -31,6 +31,16 @@ const productSchema = new mongoose.Schema({
 				throw new Error('Quantity cannot be negative');
 			}
 		}
+	},
+	// minimum no.of product qty a user can buy
+	limit: {
+		type: Number,
+		required: true,
+		validate(val) {
+			if(val <= 0) {
+				throw new Error('Limit cannot be zero or negative');
+			}
+		}
 	}
 }) 
 
