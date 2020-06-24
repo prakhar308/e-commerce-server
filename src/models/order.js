@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 const validator = require('validator');
 
 const orderSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-		trim: true
-	},
 	date: {
 		type: Date,
 		required: true,
@@ -31,6 +26,7 @@ const orderSchema = new mongoose.Schema({
 		}	
 	},
 	address: {
+		name: String,
 		street: String,
 		locality: String,
 		city: String,
