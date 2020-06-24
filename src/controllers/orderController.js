@@ -13,6 +13,8 @@ exports.createOrder = async (req, res) => {
 		await order.save();
 		// store reference of order in user
 		req.user.orders.push(order._id);
+		// clear cart
+		req.user.cart = [];
 		// save user
 		await req.user.save();
 		res.status(201).send(order);
