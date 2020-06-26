@@ -9,10 +9,10 @@ router.post('/', userController.createUser);
 router.post("/login", userController.loginUser);
 
 // logout user from current device
-router.post("/logout", auth, userController.logoutUser);
+router.get("/logout", auth, userController.logoutUser);
 
 // logout user from all devices
-router.post("/logoutAll", auth, userController.logoutAll);
+router.get("/logoutAll", auth, userController.logoutAll);
 
 router.route("/me")
 	.all(auth) // auth middleware for all the below user routes 
