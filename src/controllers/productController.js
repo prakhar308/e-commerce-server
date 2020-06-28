@@ -40,7 +40,7 @@ exports.getProducts = async (req, res) => {
 	try {
 		const products = await db.Product.find(match)
 													.skip(pageNumber > 1 ? ((pageNumber - 1) * nPerPage) : 0)
-													.limit(nPerPage)
+													// .limit(nPerPage)
 													.sort(sort)
 		res.status(200).send(products);
 	} catch(e) {
