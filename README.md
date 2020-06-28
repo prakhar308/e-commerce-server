@@ -1,4 +1,4 @@
-# e-commerce
+# e-commerce-server
 An e-commerce web app using **Node**, **Express**, **React** and **MongoDB** (**MERN** stack).
 
 Currently this repo contains only the **backend(API)** of the web app built using **Node** and **Express**.</br>
